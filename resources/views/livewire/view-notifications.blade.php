@@ -22,16 +22,16 @@
     <x-slot name="content">
         @forelse($unreadNotifications as $notification)
             <!-- Mark notification as read -->
-            <form method="POST" action="{{ route('notification.mark', $notification->id) }}">
+            <form method="POST" action="{{ route('notifications.mark', $notification->id) }}">
                 @csrf
                 @method('PATCH')
-                <x-responsive-nav-link :href="route('notification.mark', $notification->id)"
+                <x-dropdown-link :href="route('notifications.mark', $notification->id)"
                                        class="truncate"
                                        title="{{ $notification->data['message'] }}"
                                        onclick="event.preventDefault();
                                             this.closest('form').submit();">
                     {{ $notification->data['message'] }}
-                </x-responsive-nav-link>
+                </x-dropdown-link>
             </form>
         @empty
             <div class="block w-full ps-3 pe-4 py-2 border-l-4 border-transparent text-start text-base font-medium text-gray-600 transition duration-150 ease-in-out">

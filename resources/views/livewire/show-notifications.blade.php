@@ -75,10 +75,10 @@
 
                                 <x-slot name="content">
                                     <!-- Delete a specific notification -->
-                                    <form method="POST" action="{{ route('notification.destroy', $notification->id) }}">
+                                    <form method="POST" action="{{ route('notifications.destroy', $notification->id) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <x-dropdown-link :href="route('notification.destroy', $notification->id)" class="hover:text-red-800 hover:bg-red-50"
+                                        <x-dropdown-link :href="route('notifications.destroy', $notification->id)" class="hover:text-red-800 hover:bg-red-50"
                                                                onclick="event.preventDefault();
                                             this.closest('form').submit();">
                                             {{ __('Delete') }}

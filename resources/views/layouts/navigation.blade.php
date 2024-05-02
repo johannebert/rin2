@@ -16,12 +16,16 @@
                         {{ __('Home') }}
                     </x-nav-link>
                     @role('admin')
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('notification.index')" :active="request()->routeIs('notification.index')">
-                        {{ __('Notifications') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
+                            {{ __('Notifications') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('notifications.create')" :active="request()->routeIs('notifications.create')">
+                            {{ __('Notify') }}
+                        </x-nav-link>
                     @endrole
                     @auth
                         @if(session('impersonated_by'))
