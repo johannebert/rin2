@@ -17,6 +17,13 @@
         @csrf
         @method('patch')
 
+        <label for="notification" class="inline-flex cursor-pointer items-center gap-4">
+            <input id="notification" name="notification" type="checkbox" class="peer sr-only" role="switch" @checked(old('notification', $user->notification)) value="1"  />
+            <span class="trancking-wide text-sm font-medium text-gray-700 peer-checked:text-black peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-gray-300 dark:peer-checked:text-white">{{ __('Receive Notifications') }}</span>
+            <div class="relative h-6 w-11 after:h-5 after:w-5 peer-checked:after:translate-x-5 rounded-full border border-gray-300 bg-gray-100 after:absolute after:bottom-0 after:left-[0.0625rem] after:top-0 after:my-auto after:rounded-full after:bg-gray-700 after:transition-all after:content-[''] peer-checked:bg-blue-700 peer-checked:after:bg-slate-100 peer-focus:outline peer-focus:outline-2 peer-focus:outline-offset-2 peer-focus:outline-slate-800 peer-focus:peer-checked:outline-blue-700 peer-active:outline-offset-0 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:border-slate-700 dark:bg-slate-800 dark:after:bg-slate-300 dark:peer-checked:bg-blue-600 dark:peer-checked:after:bg-slate-100 dark:peer-focus:outline-slate-300 dark:peer-focus:peer-checked:outline-blue-600" aria-hidden="true"></div>
+        </label>
+        <x-input-error class="mt-2 block" :messages="$errors->get('notification')" />
+
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
@@ -46,7 +53,7 @@
                 </div>
             @endif
         </div>
-        
+
         <div>
             <x-input-label for="phone" :value="__('Phone number')" />
             <x-text-input id="phone" name="phone" type="tel" class="mt-1 block w-full" :value="old('phone', $user->phone)" autocomplete="phone" />

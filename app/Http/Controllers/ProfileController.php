@@ -28,6 +28,8 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        $request->user()->notification = $request->input('notification') ?? false;
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }

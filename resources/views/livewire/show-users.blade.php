@@ -108,8 +108,8 @@
                                         @endif
                                     @endrole
 
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Message') }}
+                                    <x-dropdown-link :href="route('notifications.create', $user)" class="hover:text-indigo-600">
+                                        {{ __('Notify') }}
                                     </x-dropdown-link>
                                 </x-slot>
                             </x-dropdown>
