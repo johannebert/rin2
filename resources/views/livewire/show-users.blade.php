@@ -40,9 +40,7 @@
                 </th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Notification</th>
                 <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unread</th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-                    <span class="sr-only">Edit</span>
-                </th>
+                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">Actions</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
@@ -60,11 +58,49 @@
                     </td>
                     <td class="hidden px-3 py-4 text-sm text-gray-500 lg:table-cell">{{ $user->phone }}</td>
                     <td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{{ $user->email }}</td>
-                    <td class="px-3 py-4 text-sm text-gray-500">{!! $user->notification ? '<span class="text-green-600">On</span>': '<span class="text-red-600">Off</span>';  !!}</td>
+                    <td class="px-3 py-4 text-sm text-gray-500">
+                        @if($user->notification)
+                            <div class="mt-1 flex items-center gap-x-1.5">
+                                <div class="flex-none rounded-full bg-emerald-500/20 p-1">
+                                    <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
+                                </div>
+                                <p class="text-xs leading-5 text-green-500">On</p>
+                            </div>
+                        @else
+                            <div class="mt-1 flex items-center gap-x-1.5">
+                                <div class="flex-none rounded-full bg-red-500/20 p-1">
+                                    <div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
+                                </div>
+                                <p class="text-xs leading-5 text-red-500">Off</p>
+                            </div>
+                        @endif
+                    </td>
                     <td class="hidden px-3 py-4 text-sm text-gray-500 sm:table-cell">{{ $user->unreadNotifications->count() }}</td>
-                    <td class="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                        <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span
-                                class="sr-only">, {{ $user->name }}</span></a>
+                    <td class="px-3 py-4 text-sm text-gray-500 sm:table-cell">
+                        <!-- Settings Dropdown -->
+                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                            <x-dropdown align="right" width="48">
+                                <x-slot name="trigger">
+                                    <button type="button"
+                                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                            id="options-menu-0-button" aria-expanded="false" aria-haspopup="true">
+                                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path
+                                                d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM11.5 15.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
+                                        </svg>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('profile.edit')">
+                                        {{ __('Impersonate') }}
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('profile.edit')">
+                                        {{ __('Message') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
                     </td>
                 </tr>
             @empty
