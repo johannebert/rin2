@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,15 +12,19 @@ class OneTimeNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public string|array $data;
+    public string $type;
+    public string $message;
+    public $expiryDate;
 
 
     /**
      * Create a new notification instance.
      */
-    public function __construct($data)
+    public function __construct($type, $message, $expiryDate = null)
     {
-        $this->data = $data;
+        $this->type = $type;
+        $this->message = $message;
+        $this->expiryDate = isset($expiryDate) ? Carbon::parse($expiryDate) : Carbon::now()->addMonth();
     }
 
     /**
@@ -63,7 +68,7 @@ class OneTimeNotification extends Notification implements ShouldQueue
      */
     public function databaseType(object $notifiable): string
     {
-        return 'one-time-notification';
+        return $this->type;
     }
 
     /**
@@ -74,8 +79,8 @@ class OneTimeNotification extends Notification implements ShouldQueue
     public function toArray(object $notifiable): array
     {
         return [
-            'data' => $this->data,
-            'subject' => $notifiable->name . ' has sent you a one-time notification.',
+            'message' => $this->message,
+            'expiry_date' => $this->expiryDate ?? null,
         ];
     }
 }
