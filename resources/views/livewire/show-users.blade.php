@@ -47,7 +47,15 @@
             @forelse ($users as $user)
                 <tr>
                     <td class="w-full max-w-0 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:w-auto sm:max-w-none sm:pl-0">
-                        {{ $user->name }}
+                        @role('admin')
+                            @if($user->id != auth()->id())
+                                <a href="{{  route('users.impersonate', $user->id) }}" class="hover:text-yellow-600" title="{{ __('Impersonate') }}">
+                                    {{ $user->name }}
+                                </a>
+                            @else
+                                <span title="{{ __('This is you!') }}">{{ $user->name }}</span>
+                            @endif
+                        @endrole
                         <dl class="font-normal lg:hidden">
                             <dt class="sr-only">Phone</dt>
                             <dd class="mt-1 truncate text-gray-700">{{ $user->phone }}</dd>
@@ -94,7 +102,7 @@
                                 <x-slot name="content">
                                     @role('admin')
                                         @if($user->id != auth()->id())
-                                            <x-dropdown-link :href="route('users.impersonate', $user->id)" class="text-warning">
+                                            <x-dropdown-link :href="route('users.impersonate', $user->id)" class="hover:text-yellow-600">
                                                 {{ __('Impersonate') }}
                                             </x-dropdown-link>
                                         @endif
