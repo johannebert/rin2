@@ -92,9 +92,14 @@
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Impersonate') }}
-                                    </x-dropdown-link>
+                                    @role('admin')
+                                        @if($user->id != auth()->id())
+                                            <x-dropdown-link :href="route('users.impersonate', $user->id)" class="text-warning">
+                                                {{ __('Impersonate') }}
+                                            </x-dropdown-link>
+                                        @endif
+                                    @endrole
+
                                     <x-dropdown-link :href="route('profile.edit')">
                                         {{ __('Message') }}
                                     </x-dropdown-link>
