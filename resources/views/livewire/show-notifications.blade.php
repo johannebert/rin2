@@ -74,12 +74,16 @@
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Impersonate') }}
-                                    </x-dropdown-link>
-                                    <x-dropdown-link :href="route('profile.edit')">
-                                        {{ __('Message') }}
-                                    </x-dropdown-link>
+                                    <!-- Delete a specific notification -->
+                                    <form method="POST" action="{{ route('notification.destroy', $notification->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-dropdown-link :href="route('notification.destroy', $notification->id)" class="hover:text-red-800 hover:bg-red-50"
+                                                               onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                            {{ __('Delete') }}
+                                        </x-dropdown-link>
+                                    </form>
                                 </x-slot>
                             </x-dropdown>
                         </div>

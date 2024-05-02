@@ -25,7 +25,7 @@ class ShowNotifications extends Component
             ->when($this->query, function ($query) {
                 $query->where(DB::raw('lower(data)'), 'like', '%' . strtolower($this->query) . '%')
                     ->orWhere(DB::raw('lower(type)'), 'like', '%' . strtolower($this->query) . '%');
-            })->simplePaginate(10);
+            })->latest()->simplePaginate(10);
 
 
         return view('livewire.show-notifications', [

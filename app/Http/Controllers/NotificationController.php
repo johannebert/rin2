@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\OneTimeNotification;
-use Illuminate\Http\Request;
-
 class NotificationController extends Controller
 {
     /*
@@ -21,6 +18,18 @@ class NotificationController extends Controller
     public function markNotification($id)
     {
         auth()->user()->unreadNotifications->where('id', $id)->markAsRead();
+
+        return redirect()->back();
+    }
+
+    /*
+     * delete specific notification
+     */
+    public function destroy($id)
+    {
+        auth()->user()->notifications()->where('id', $id)->delete();
+
+        session()->flash('message', 'Notification deleted successfully');
 
         return redirect()->back();
     }

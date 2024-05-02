@@ -21,7 +21,7 @@
 
     <x-slot name="content">
         @forelse($unreadNotifications as $notification)
-            <!-- Authentication -->
+            <!-- Mark notification as read -->
             <form method="POST" action="{{ route('notification.mark', $notification->id) }}">
                 @csrf
                 @method('PATCH')

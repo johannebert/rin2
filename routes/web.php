@@ -16,7 +16,8 @@ Route::get('/dashboard', function () {
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
-    Route::patch('/mark-notification/{id}',     [NotificationController::class, 'markNotification'])->name('notification.mark');
+    Route::patch('/mark-notification/{id}', [NotificationController::class, 'markNotification'])->name('notification.mark');
+    Route::delete('/notification/{id}', [NotificationController::class, 'destroy'])->name('notification.destroy');
 
     Route::get('/{user}/impersonate', [UsersController::class, 'impersonate'])
         ->middleware('role:admin')
