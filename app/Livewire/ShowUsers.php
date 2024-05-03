@@ -23,9 +23,9 @@ class ShowUsers extends Component
     public function render()
     {
         $users = User::query()->with('unreadNotifications')->when($this->query, function ($query) {
-                $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($this->query) . '%')
-                    ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($this->query) . '%');
-            })->simplePaginate(10);
+            $query->where(DB::raw('lower(name)'), 'like', '%' . strtolower($this->query) . '%')
+                ->orWhere(DB::raw('lower(email)'), 'like', '%' . strtolower($this->query) . '%');
+        })->simplePaginate(10);
 
         return view('livewire.show-users', [
             'users' => $users
